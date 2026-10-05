@@ -1,0 +1,7 @@
+{
+  "name": "Hyperlab.Bootstrap.Editor",
+  "rootNamespace": "Hyperlab.Bootstrap",
+  "references": ["Unity.Pipeline.Attributes"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": true
+}

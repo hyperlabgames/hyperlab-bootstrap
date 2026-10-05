@@ -1,0 +1,13 @@
+{
+  "name": "com.hyperlab.bootstrap",
+  "version": "0.1.0",
+  "displayName": "Hyperlab Bootstrap",
+  "description": "First step for a new developer: a Hyperlab Login window that stores the registry token in ~/.upmconfig.toml, adds the Hyperlab scoped registry to the project manifest and installs Hyperlab Setup. Agent commands: bootstrap_status, bootstrap_login.",
+  "unity": "6000.0",
+  "author": { "name": "Hyperlab Games", "email": "ai@hyperlab.games" },
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.2",
+    "com.unity.pipeline": "0.8.0-exp.1"
+  },
+  "publishConfig": { "registry": "https://upm.hyperlab.games" }
+}
