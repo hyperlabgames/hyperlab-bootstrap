@@ -58,6 +58,8 @@ namespace Hyperlab.Bootstrap
             var login = await RegistryLogin.LoginAsync(http, BootstrapDefaults.RegistryUrl, user, password);
             if (login.Status != LoginStatus.Ok) return login;
 
+            // Setup zaten kuruluyken login (token yenileme) "being installed" demesin.
+            var setupInstalled = Status(p).ManifestHasSetup;
             var manifest = PrepareManifest(p, out var manifestError);
             if (manifestError != null) return manifestError.Value;
 
@@ -87,7 +89,11 @@ namespace Hyperlab.Bootstrap
                 }
             }
             ResolveRequested = true;
-            return new LoginResult { Status = LoginStatus.Ok, Message = "Logged in. Hyperlab Setup is being installed." };
+            return new LoginResult
+            {
+                Status = LoginStatus.Ok,
+                Message = setupInstalled ? "Logged in. Hyperlab Setup is already installed." : "Logged in. Hyperlab Setup is being installed.",
+            };
         }
 
         /// <summary>

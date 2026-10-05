@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-10-05
+### Changed
+- `BootstrapDefaults.SetupVersion` 0.2.0: yeni projeler setup 0.2.0 ile kurulur.
+### Fixed
+- `bootstrap_login`, Setup zaten kuruluyken de "Hyperlab Setup is being installed." diyordu; artık "Logged in. Hyperlab
+  Setup is already installed." der.
+
 ## [0.1.1] - 2026-10-05
 
 ### Fixed

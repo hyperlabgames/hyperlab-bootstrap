@@ -40,7 +40,8 @@ Hepsi `Hyperlab.Bootstrap` ad alanında, Editor asmdef'indedir.
 - `BootstrapService.RunAsync(IHttp, BootstrapPaths, user, password)`: login olur; başarılıysa token'ı ve manifest'i
   yazar, `ResolveRequested` bayrağını kaldırır (`AutoOpen` ana iş parçacığında `Client.Resolve()` çağırır). Login ya da
   manifest okuma/ayrıştırma hatasında hiçbir dosyaya yazılmaz; token yazıldıktan sonra manifest yazılamazsa token
-  kalır ve mesaj bunu söyler.
+  kalır ve mesaj bunu söyler. Manifest'te `com.hyperlab.setup` zaten varsa (token yenileme) mesaj "Logged in. Hyperlab
+  Setup is already installed." olur.
 - `BootstrapService.CompleteManifestAsync(IHttp, BootstrapPaths)`: parolasız; saklı token `GET` ile doğrulanırsa yalnız
   manifest eksiğini tamamlar (PUT atmaz).
 - `RegistryLogin.LoginAsync` / `TokenWorksAsync`: login çağrısı ve token yoklaması (`GET <registry>/com.hyperlab.core`).
