@@ -23,7 +23,8 @@ Batchmode'da (CI, headless editör) hiçbir şey yapılmaz.
 Akış: `PUT <registry>/-/user/org.couchdb.user:<ad>` isteği `Authorization: Basic` ile atılır; dönen `token`
 `~/.upmconfig.toml` içine `[npmAuth."https://upm.hyperlab.games"]` altında yazılır (dosya yoksa izin 600 ile
 oluşturulur). Sonra manifest'e `Hyperlab` scoped registry'si (scope `com.hyperlab`, `com.cysharp`) ve
-`com.hyperlab.setup` eklenir.
+`com.hyperlab.setup` eklenir. Yazılan setup sürümü `BootstrapDefaults.SetupVersion`'dır; yayınlanan son setup sürümüne
+eşit tutulur (test denetler), yoksa yeni projeler eski setup'ı ve onun hatalarını alır.
 
 ## Inspector alanları
 

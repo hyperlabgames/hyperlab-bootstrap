@@ -14,6 +14,8 @@ Yalnız Editor paketi. Boş projede registry token'ını ve manifest girişlerin
 - `com.hyperlab.*` bağımlılığı yok: paket registry'den önce çözülmek zorunda.
 - `.upmconfig.toml`'da yalnız kendi bölümüne (`[npmAuth."https://upm.hyperlab.games"]`) dokun; diğer bölümler korunur.
 - Manifest'ten hiçbir şey silinmez; var olan registry adı ve scope'lar korunur. Bozuk manifest'e dokunulmaz.
+- `BootstrapDefaults.SetupVersion` = `com.hyperlab.setup` `package.json` sürümü; setup yayınlanırken ikisi aynı
+  release commit'inde değişir ve bootstrap da yayınlanır (`SetupVersionMatchesTheRegisteredSetupPackage`).
 
 ## Görev → sayfa haritası
 
