@@ -36,6 +36,10 @@ Yalnız Editor paketi. Boş projede registry token'ını ve manifest girişlerin
 - Registry 409 döner: yanlış kimlik ya da kullanıcı yok; ikisi ayırt edilmez, pencere "Wrong user name or password." der.
 - `chmod` (izin 600) başarısız olursa hata değil uyarıdır; token yine yazılır.
 - Token yazıldı ama paketler inmiyor: Unity'nin manifest'i yeniden çözmesini bekle ya da `Assets → Refresh`.
+- Bootstrap sonrası bütün `unity command` çağrıları ~30 sn zaman aşımına düşüyor: registry manifest'e yazılınca Unity
+  "Importing a scoped registry" modalını açar (Project Settings → Package Manager ile) ve modal açıkken ana iş parçacığı durur.
+  İnsan için tek tık; ekranı kilitli makinede agent tıklayamaz. Doğrula: `sample <editör pid> 1` çıktısında `NSAlert runModal`.
+  Çözüm: editörü kapatıp yeniden aç (modal tekrar gelmez).
 
 ## Doğrulama
 

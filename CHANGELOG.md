@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-10-06
+### Changed
+- `BootstrapDefaults.SetupVersion` 0.2.1: yeni projeler setup 0.2.1 ile kurulur (voodoo 0.2.1).
+
 ## [0.1.2] - 2026-10-05
 ### Changed
 - `BootstrapDefaults.SetupVersion` 0.2.0: yeni projeler setup 0.2.0 ile kurulur.
