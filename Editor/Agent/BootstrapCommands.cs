@@ -10,7 +10,7 @@ namespace Hyperlab.Bootstrap
         public static object Status()
         {
             var s = BootstrapService.Status(BootstrapPaths.Default());
-            return new { token_present = s.TokenPresent, manifest_has_registry = s.ManifestHasRegistry, manifest_has_setup = s.ManifestHasSetup, complete = s.Complete };
+            return new { token_present = s.TokenPresent, manifest_has_registry = s.ManifestHasRegistry, manifest_has_setup = s.ManifestHasSetup, bootstrap_from_git = s.BootstrapFromGit, complete = s.Complete };
         }
 
         [CliCommand("bootstrap_login", "Logs in to the Hyperlab registry, stores the token in ~/.upmconfig.toml and completes the manifest. The password is read from an environment variable. Mutates: requires confirm=true; dry_run=true only reports the status.",

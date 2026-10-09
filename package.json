@@ -1,6 +1,6 @@
 {
   "name": "com.hyperlab.bootstrap",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "displayName": "Hyperlab Bootstrap",
   "description": "First step for a new developer: a Hyperlab Login window that stores the registry token in ~/.upmconfig.toml, adds the Hyperlab scoped registry to the project manifest and installs Hyperlab Setup. Agent commands: bootstrap_status, bootstrap_login.",
   "unity": "6000.0",

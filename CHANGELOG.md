@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-10-10
+### Fixed
+- Git URL ile kurulan bootstrap, login sonrası Package Manager'da (paketler son sürümdeyken de) "Update" düğmesiyle
+  görünüyordu: Hyperlab registry'si aynı paketi sunuyordu. Login ve "Complete setup" artık bootstrap'ın manifest
+  girişini registry sürümüne (`BootstrapDefaults.BootstrapVersion`) çevirir; eski kurulumlarda `Complete` false olur
+  ve pencere "Complete setup" düğmesini gösterir. `bootstrap_status` `bootstrap_from_git` döner.
+
 ## [0.1.3] - 2026-10-06
 ### Changed
 - `BootstrapDefaults.SetupVersion` 0.2.1: yeni projeler setup 0.2.1 ile kurulur (voodoo 0.2.1).

@@ -13,7 +13,10 @@ Yalnız Editor paketi. Boş projede registry token'ını ve manifest girişlerin
 - Parola hiçbir yere yazılmaz: dosya, log, hata mesajı, agent çıktısı. Yalnız bellekte kalır.
 - `com.hyperlab.*` bağımlılığı yok: paket registry'den önce çözülmek zorunda.
 - `.upmconfig.toml`'da yalnız kendi bölümüne (`[npmAuth."https://upm.hyperlab.games"]`) dokun; diğer bölümler korunur.
-- Manifest'ten hiçbir şey silinmez; var olan registry adı ve scope'lar korunur. Bozuk manifest'e dokunulmaz.
+- Manifest'ten hiçbir şey silinmez; var olan registry adı ve scope'lar korunur. Bozuk manifest'e dokunulmaz. Tek istisna:
+  Git URL ile kurulu bootstrap'ın kendi girişi registry sürümüne çevrilir (yoksa Package Manager "Update" gösterir).
+- `BootstrapDefaults.BootstrapVersion` = bootstrap `package.json` sürümü; bootstrap yayınlanırken ikisi birlikte değişir
+  (`BootstrapVersionMatchesTheBootstrapPackage`).
 - `BootstrapDefaults.SetupVersion` = `com.hyperlab.setup` `package.json` sürümü; setup yayınlanırken ikisi aynı
   release commit'inde değişir ve bootstrap da yayınlanır (`SetupVersionMatchesTheRegisteredSetupPackage`).
 
@@ -28,7 +31,7 @@ Yalnız Editor paketi. Boş projede registry token'ını ve manifest girişlerin
 
 | Komut | Ne yapar |
 |---|---|
-| `bootstrap_status` | Okur: token, scoped registry ve `com.hyperlab.setup` girişi var mı (`complete`). |
+| `bootstrap_status` | Okur: token, scoped registry ve `com.hyperlab.setup` girişi var mı, bootstrap Git URL ile mi kurulu (`bootstrap_from_git`, `complete`). |
 | `bootstrap_login` | `--user`, `--password_env` (parolanın okunacağı ortam değişkeni; parola argüman değildir), `confirm` / `dry_run`. `confirm=true` olmadan yalnız durumu döner. |
 
 ## Sık yapılan hatalar

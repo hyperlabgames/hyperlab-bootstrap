@@ -14,6 +14,22 @@ https://github.com/hyperlabgames/hyperlab-bootstrap.git
 
 Ortak kullanıcı adı ve parolayı ekipten al. Parola hiçbir yere yazılmaz.
 
+## Hızlı başlangıç
+
+Boş projede Package Manager'dan yukarıdaki git URL'sini ekle; `Hyperlab Login` penceresi açılınca ekibin ortak kullanıcı
+adı ve parolasını gir (menü: `Hyperlab → Login`). Token yazılır, manifest'e registry ve `com.hyperlab.setup` eklenir.
+
+Durumu komut satırından görmek için:
+
+```bash
+unity command bootstrap_status --project-path <proje>
+```
+
+## Dokümanlar
+
+- [Giriş ve login akışı](Documentation~/giris.md)
+- Agent kuralları için [AGENTS.md](AGENTS.md); değişiklikler için [CHANGELOG.md](CHANGELOG.md).
+
 ## Akış
 
 1. Paket yüklenince, token yoksa `Hyperlab Login` penceresi bir kez kendiliğinden açılır (menü: `Hyperlab → Login`).
@@ -32,8 +48,3 @@ Ortak kullanıcı adı ve parolayı ekipten al. Parola hiçbir yere yazılmaz.
 - `bootstrap_login`: `--user` ve `--password_env <DEĞİŞKEN>` (parola ortam değişkeninden okunur, argüman olarak geçmez); `confirm=true` ister, `dry_run` yalnız durumu döner.
 
 Keşif: `unity command --tag hyperlab --detail compact --project-path Sandbox`.
-
-## Dokümanlar
-
-- [Giriş ve login akışı](Documentation~/giris.md)
-- Agent kuralları için [AGENTS.md](AGENTS.md); değişiklikler için [CHANGELOG.md](CHANGELOG.md).

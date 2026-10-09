@@ -9,7 +9,10 @@ namespace Hyperlab.Bootstrap
         public const string RegistryName = "Hyperlab";
         public static readonly string[] Scopes = { "com.hyperlab", "com.cysharp" };
         public const string SetupPackage = "com.hyperlab.setup";
-        public const string SetupVersion = "0.2.1";
+        public const string SetupVersion = "0.3.0";
+        public const string BootstrapPackage = "com.hyperlab.bootstrap";
+        /// <summary>Git URL'den kurulan bootstrap'ın login sonrası geçirildiği registry sürümü; `package.json` ile eşit (test denetler).</summary>
+        public const string BootstrapVersion = "0.1.4";
     }
 
     public sealed class BootstrapPaths

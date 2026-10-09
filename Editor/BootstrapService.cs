@@ -13,10 +13,12 @@ namespace Hyperlab.Bootstrap
         public bool ManifestHasSetup;
         /// <summary>Bootstrap `file:` ile kurulu (yerel geliştirme / Sandbox): manifest'e dokunulmaz.</summary>
         public bool LocalDev;
+        /// <summary>Bootstrap Git URL'den kurulu: registry eklenince Package Manager registry sürümünü "Update" diye gösterir.</summary>
+        public bool BootstrapFromGit;
         public bool NeedsLogin => !TokenPresent;
-        /// <summary>Manifest'e yazılacak bir şey kalmadı: setup zaten var ya da yerel geliştirme kurulumu.</summary>
-        public bool ManifestSettled => LocalDev || ManifestHasSetup;
-        public bool Complete => TokenPresent && (LocalDev || (ManifestHasRegistry && ManifestHasSetup));
+        /// <summary>Manifest'e yazılacak bir şey kalmadı: setup zaten var (bootstrap Git'ten değil) ya da yerel geliştirme kurulumu.</summary>
+        public bool ManifestSettled => LocalDev || (ManifestHasSetup && !BootstrapFromGit);
+        public bool Complete => TokenPresent && (LocalDev || (ManifestHasRegistry && ManifestHasSetup && !BootstrapFromGit));
     }
 
     public static class BootstrapService
@@ -30,13 +32,15 @@ namespace Hyperlab.Bootstrap
             var hasRegistry = false;
             var hasSetup = false;
             var localDev = false;
+            var fromGit = false;
             if (File.Exists(p.Manifest))
             {
                 try
                 {
                     var j = JObject.Parse(File.ReadAllText(p.Manifest));
-                    var boot = (string)j["dependencies"]?["com.hyperlab.bootstrap"];
+                    var boot = (string)j["dependencies"]?[BootstrapDefaults.BootstrapPackage];
                     localDev = boot != null && boot.StartsWith("file:", StringComparison.Ordinal);
+                    fromGit = ManifestWriter.IsGitSource(boot);
                     hasSetup = j["dependencies"]?[BootstrapDefaults.SetupPackage] != null;
                     if (j["scopedRegistries"] is JArray regs)
                         foreach (var r in regs)
@@ -50,6 +54,7 @@ namespace Hyperlab.Bootstrap
                 ManifestHasRegistry = hasRegistry,
                 ManifestHasSetup = hasSetup,
                 LocalDev = localDev,
+                BootstrapFromGit = fromGit,
             };
         }
 
@@ -114,6 +119,7 @@ namespace Hyperlab.Bootstrap
             if (probe != 200)
                 return new LoginResult { Status = LoginStatus.WrongCredentials, Message = "The stored token is not accepted by the registry; log in again." };
 
+            var setupInstalled = Status(p).ManifestHasSetup;
             var manifest = PrepareManifest(p, out var manifestError);
             if (manifestError != null) return manifestError.Value;
             if (manifest.Changed)
@@ -125,7 +131,11 @@ namespace Hyperlab.Bootstrap
                 }
             }
             ResolveRequested = true;
-            return new LoginResult { Status = LoginStatus.Ok, Message = "Hyperlab Setup is being installed." };
+            return new LoginResult
+            {
+                Status = LoginStatus.Ok,
+                Message = setupInstalled ? "Hyperlab Bootstrap now comes from the Hyperlab registry." : "Hyperlab Setup is being installed.",
+            };
         }
 
         static ManifestResult PrepareManifest(BootstrapPaths p, out LoginResult? error)
@@ -140,8 +150,10 @@ namespace Hyperlab.Bootstrap
             }
             try
             {
-                return ManifestWriter.Ensure(manifestText, BootstrapDefaults.RegistryName,
+                var ensured = ManifestWriter.Ensure(manifestText, BootstrapDefaults.RegistryName,
                     BootstrapDefaults.RegistryUrl, BootstrapDefaults.Scopes, BootstrapDefaults.SetupPackage, BootstrapDefaults.SetupVersion);
+                var moved = ManifestWriter.UseRegistryFor(ensured.Json, BootstrapDefaults.BootstrapPackage, BootstrapDefaults.BootstrapVersion);
+                return new ManifestResult(moved.Json, ensured.Changed || moved.Changed);
             }
             catch (FormatException)
             {
