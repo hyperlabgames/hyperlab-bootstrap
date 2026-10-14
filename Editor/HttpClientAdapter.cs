@@ -10,15 +10,13 @@ namespace Hyperlab.Bootstrap
     {
         static readonly HttpClient Client = new HttpClient { Timeout = TimeSpan.FromSeconds(15) };
 
-        public async Task<HttpResult> SendAsync(string method, string url, string jsonBody, string basicUser, string basicPassword, string bearer)
+        public async Task<HttpResult> SendAsync(string method, string url, string jsonBody, string bearer)
         {
             try
             {
                 using var req = new HttpRequestMessage(new HttpMethod(method), url);
                 if (jsonBody != null) req.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-                if (basicUser != null)
-                    req.Headers.Authorization = new AuthenticationHeaderValue("Basic", BasicAuth.Header(basicUser, basicPassword));
-                else if (bearer != null)
+                if (bearer != null)
                     req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", bearer);
                 using var res = await Client.SendAsync(req);
                 return new HttpResult { Status = (int)res.StatusCode, Body = await res.Content.ReadAsStringAsync() };

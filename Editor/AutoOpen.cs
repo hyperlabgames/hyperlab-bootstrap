@@ -13,6 +13,7 @@ namespace Hyperlab.Bootstrap
         {
             EditorApplication.update += Tick;
             EditorApplication.delayCall += OpenOnce;
+            EditorApplication.delayCall += LoginFollowUp.OpenSetupIfRequested;
         }
 
         static void Tick()
@@ -24,7 +25,7 @@ namespace Hyperlab.Bootstrap
 
         /// <summary>
         /// Proje başına bir kez: giriş eksikse pencere kendiliğinden açılır. Token varsa pencere açılmaz, manifest eksiği
-        /// parolasız tamamlanır. Batchmode'da (CI, headless agent editörleri) hiçbir şey yapılmaz.
+        /// GitHub girişi olmadan tamamlanır. Batchmode'da (CI, headless agent editörleri) hiçbir şey yapılmaz.
         /// </summary>
         static async void OpenOnce()
         {

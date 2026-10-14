@@ -13,19 +13,18 @@ namespace Hyperlab.Bootstrap
             return new { token_present = s.TokenPresent, manifest_has_registry = s.ManifestHasRegistry, manifest_has_setup = s.ManifestHasSetup, bootstrap_from_git = s.BootstrapFromGit, complete = s.Complete };
         }
 
-        [CliCommand("bootstrap_login", "Logs in to the Hyperlab registry, stores the token in ~/.upmconfig.toml and completes the manifest. The password is read from an environment variable. Mutates: requires confirm=true; dry_run=true only reports the status.",
+        [CliCommand("bootstrap_login", "Stores a registry token read from an environment variable in ~/.upmconfig.toml after checking it against the registry, and completes the manifest. People log in with Hyperlab > Login (GitHub). Mutates: requires confirm=true; dry_run=true only reports the status.",
             MainThreadRequired = false, Tags = new[] { "hyperlab/bootstrap" })]
         public static object Login(
-            [CliArg("user", "Registry user name", Required = true)] string user,
-            [CliArg("password_env", "Name of the environment variable that holds the password", Required = true)] string passwordEnv,
+            [CliArg("token_env", "Name of the environment variable that holds the registry token", Required = true)] string tokenEnv,
             [CliArg("dry_run", "Report the current status; nothing is written")] bool dryRun = false,
-            [CliArg("confirm", "Log in and write the files")] bool confirm = false)
+            [CliArg("confirm", "Check the token and write the files")] bool confirm = false)
         {
             var paths = BootstrapPaths.Default();
             if (dryRun || !confirm) return new { state = "dry_run", status = Status() };
-            var password = Environment.GetEnvironmentVariable(passwordEnv);
-            if (string.IsNullOrEmpty(password)) return new { state = "error", message = $"Environment variable {passwordEnv} is empty or not set." };
-            var r = BootstrapService.RunAsync(new HttpClientAdapter(), paths, user, password).GetAwaiter().GetResult();
+            var token = Environment.GetEnvironmentVariable(tokenEnv);
+            if (string.IsNullOrEmpty(token)) return new { state = "error", message = $"Environment variable {tokenEnv} is empty or not set." };
+            var r = BootstrapService.ApplyTokenAsync(new HttpClientAdapter(), paths, token).GetAwaiter().GetResult();
             return new { state = r.Status.ToString(), message = r.Message };
         }
     }

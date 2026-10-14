@@ -58,10 +58,26 @@ namespace Hyperlab.Bootstrap
             };
         }
 
-        public static async Task<LoginResult> RunAsync(IHttp http, BootstrapPaths p, string user, string password)
+        public const string NotInTeamMessage =
+            "Your GitHub account is not in the hyperlabgames studio-developer or studio-cofounder team; ask to be added, then log in again.";
+
+        public const string TokenRejectedMessage = "The registry rejected the token (invalid or expired); log in again.";
+
+        /// <summary>
+        /// GitHub girişinden (ya da agent'ın ortam değişkeninden) gelen token'ı registry'de dener; geçerse
+        /// `~/.upmconfig.toml`'a ve manifest'e yazar. Token mesajlara girmez.
+        /// </summary>
+        public static async Task<LoginResult> ApplyTokenAsync(IHttp http, BootstrapPaths p, string token)
         {
-            var login = await RegistryLogin.LoginAsync(http, BootstrapDefaults.RegistryUrl, user, password);
-            if (login.Status != LoginStatus.Ok) return login;
+            var probe = await RegistryLogin.ProbeTokenAsync(http, BootstrapDefaults.RegistryUrl, token).ConfigureAwait(false);
+            if (probe == 0)
+                return new LoginResult { Status = LoginStatus.Unreachable, Message = "Cannot reach the Hyperlab registry; check the network and retry." };
+            if (probe == 403)
+                return new LoginResult { Status = LoginStatus.WrongCredentials, Message = NotInTeamMessage };
+            if (probe == 401)
+                return new LoginResult { Status = LoginStatus.WrongCredentials, Message = TokenRejectedMessage };
+            if (probe != 200)
+                return new LoginResult { Status = LoginStatus.Rejected, Message = $"The registry answered with status {probe}." };
 
             // Setup zaten kuruluyken login (token yenileme) "being installed" demesin.
             var setupInstalled = Status(p).ManifestHasSetup;
@@ -71,11 +87,11 @@ namespace Hyperlab.Bootstrap
             try
             {
                 var toml = File.Exists(p.UpmConfig) ? File.ReadAllText(p.UpmConfig) : "";
-                WriteAtomic(p.UpmConfig, UpmConfigWriter.SetToken(toml, BootstrapDefaults.RegistryUrl, login.Token), restrict: true);
+                WriteAtomic(p.UpmConfig, UpmConfigWriter.SetToken(toml, BootstrapDefaults.RegistryUrl, token), restrict: true);
             }
             catch (Exception e) when (e is IOException || e is UnauthorizedAccessException)
             {
-                // Token ve parola mesaja girmez.
+                // Token mesaja girmez.
                 return new LoginResult
                 {
                     Status = LoginStatus.Rejected,
@@ -102,7 +118,7 @@ namespace Hyperlab.Bootstrap
         }
 
         /// <summary>
-        /// Token zaten varsa parolasız yol: token registry'de çalışıyorsa yalnız manifest eksiği tamamlanır (spec §3 adım 6).
+        /// Token zaten varsa GitHub girişi olmadan yol: token registry'de çalışıyorsa yalnız manifest eksiği tamamlanır (spec §3 adım 6).
         /// </summary>
         public static async Task<LoginResult> CompleteManifestAsync(IHttp http, BootstrapPaths p)
         {

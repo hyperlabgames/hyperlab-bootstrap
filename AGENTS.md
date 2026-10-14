@@ -4,13 +4,14 @@ Yalnız Editor paketi. Boş projede registry token'ını ve manifest girişlerin
 
 ## Paket ne yapar, ne yapmaz
 
-- Yapar: `Hyperlab Login` penceresi (`Hyperlab → Login`); registry'den token alıp `~/.upmconfig.toml`'a yazar;
+- Yapar: `Hyperlab Login` penceresi (`Hyperlab → Login`); GitHub girişinden gelen token'ı denetleyip `~/.upmconfig.toml`'a yazar;
   `Packages/manifest.json`'a `Hyperlab` scoped registry'sini ve `com.hyperlab.setup`'ı ekler.
-- Yapmaz: parola saklamaz, paket yayınlamaz, hesap açmaz, Setup'ın işini (oyun kurulumu, kart akışı) yapmaz.
+- Yapmaz: paket yayınlamaz, hesap açmaz, Setup'ın işini (oyun kurulumu, kart akışı) yapmaz.
 
 ## Bağlayıcı kurallar
 
-- Parola hiçbir yere yazılmaz: dosya, log, hata mesajı, agent çıktısı. Yalnız bellekte kalır.
+- Token hiçbir mesaja, loga, agent çıktısına yazılmaz; yalnız `~/.upmconfig.toml`'a.
+- Callback portu 8239 eklentide sabittir; değiştirmek sunucu eklentisini değiştirmeyi gerektirir.
 - `com.hyperlab.*` bağımlılığı yok: paket registry'den önce çözülmek zorunda.
 - `.upmconfig.toml`'da yalnız kendi bölümüne (`[npmAuth."https://upm.hyperlab.games"]`) dokun; diğer bölümler korunur.
 - Manifest'ten hiçbir şey silinmez; var olan registry adı ve scope'lar korunur. Bozuk manifest'e dokunulmaz. Tek istisna:
@@ -32,11 +33,11 @@ Yalnız Editor paketi. Boş projede registry token'ını ve manifest girişlerin
 | Komut | Ne yapar |
 |---|---|
 | `bootstrap_status` | Okur: token, scoped registry ve `com.hyperlab.setup` girişi var mı, bootstrap Git URL ile mi kurulu (`bootstrap_from_git`, `complete`). |
-| `bootstrap_login` | `--user`, `--password_env` (parolanın okunacağı ortam değişkeni; parola argüman değildir), `confirm` / `dry_run`. `confirm=true` olmadan yalnız durumu döner. |
+| `bootstrap_login` | `--token_env` (token'ın okunacağı ortam değişkeni; token argüman değildir), `confirm` / `dry_run`. `confirm=true` olmadan yalnız durumu döner. |
 
 ## Sık yapılan hatalar
 
-- Registry 409 döner: yanlış kimlik ya da kullanıcı yok; ikisi ayırt edilmez, pencere "Wrong user name or password." der.
+- Registry 403: GitHub hesabı `studio-developer` ya da `studio-cofounder` takımında değil (kurucu takımı okur, yayın yapamaz). Registry 401: token geçersiz (`TokenRejectedMessage`); pencere parola istiyorsa bootstrap eski sürümdür (`giris.md` Tuzaklar).
 - `chmod` (izin 600) başarısız olursa hata değil uyarıdır; token yine yazılır.
 - Token yazıldı ama paketler inmiyor: Unity'nin manifest'i yeniden çözmesini bekle ya da `Assets → Refresh`.
 - Bootstrap sonrası bütün `unity command` çağrıları ~30 sn zaman aşımına düşüyor: registry manifest'e yazılınca Unity

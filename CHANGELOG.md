@@ -1,6 +1,21 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- Giriş GitHub ile yapılır: `Hyperlab → Login` tarayıcıda GitHub'ı açar, token `localhost:8239` yönlendirmesiyle
+  alınıp registry'de denenir ve `~/.upmconfig.toml`'a yazılır. Erişim `hyperlabgames` `studio-developer` ve `studio-cofounder` takımlarıdır (kurucu takımı okur, yayın yapamaz).
+- **Kırıcı:** kullanıcı adı/parola girişi kalktı (`BootstrapService.RunAsync`, `RegistryLogin.LoginAsync` silindi;
+  yerine `BootstrapService.ApplyTokenAsync`, `GitHubLogin.LoginAsync`). Agent komutu `bootstrap_login` artık
+  `user`/`password_env` değil `token_env` alır. `BasicAuth` silindi ve `IHttp.SendAsync` artık Basic-auth parametresi (`basicUser`, `basicPassword`) almaz.
+- Registry 401 (token geçersiz ya da süresi dolmuş) artık takım hatasından ayrı mesaj verir (`TokenRejectedMessage`); 403 `NotInTeamMessage` kalır. Sunucunun `message` metni pencerede 120 karakterle sınırlanır.
+### Documentation
+- Giriş tarifi ve ekran görüntüsü GitHub girişine göre güncellendi.
+- Editör tarifi: Registry'e giriş yap (`Documentation~/tarifler/giris-yapma.md`), ekran görüntülü.
+
+## [0.1.5] - 2026-10-12
+### Changed
+- Başarılı girişten sonra Login penceresi kapanır, sonuç Console'a yazılır. Paketler inip alan yeniden yüklenince
+  Setup sihirbazı kendiliğinden açılır (daha önce açıldı işareti olsa bile; istek `SessionState`'te taşınır).
 
 ## [0.1.4] - 2026-10-10
 ### Fixed
