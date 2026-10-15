@@ -1,7 +1,15 @@
 # Changelog
 
 ## [Unreleased]
+
+## [0.1.6] - 2026-10-15
 ### Changed
+- Yeni projeler Setup 0.5.0 ile kurulur (`BootstrapDefaults.SetupVersion`).
+
+## [0.1.5] - 2026-10-12
+### Changed
+- Başarılı girişten sonra Login penceresi kapanır, sonuç Console'a yazılır. Paketler inip alan yeniden yüklenince
+  Setup sihirbazı kendiliğinden açılır (daha önce açıldı işareti olsa bile; istek `SessionState`'te taşınır).
 - Giriş GitHub ile yapılır: `Hyperlab → Login` tarayıcıda GitHub'ı açar, token `localhost:8239` yönlendirmesiyle
   alınıp registry'de denenir ve `~/.upmconfig.toml`'a yazılır. Erişim `hyperlabgames` `studio-developer` ve `studio-cofounder` takımlarıdır (kurucu takımı okur, yayın yapamaz).
 - **Kırıcı:** kullanıcı adı/parola girişi kalktı (`BootstrapService.RunAsync`, `RegistryLogin.LoginAsync` silindi;
@@ -11,11 +19,6 @@
 ### Documentation
 - Giriş tarifi ve ekran görüntüsü GitHub girişine göre güncellendi.
 - Editör tarifi: Registry'e giriş yap (`Documentation~/tarifler/giris-yapma.md`), ekran görüntülü.
-
-## [0.1.5] - 2026-10-12
-### Changed
-- Başarılı girişten sonra Login penceresi kapanır, sonuç Console'a yazılır. Paketler inip alan yeniden yüklenince
-  Setup sihirbazı kendiliğinden açılır (daha önce açıldı işareti olsa bile; istek `SessionState`'te taşınır).
 
 ## [0.1.4] - 2026-10-10
 ### Fixed
