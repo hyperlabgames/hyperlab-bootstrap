@@ -29,6 +29,8 @@ namespace Hyperlab.Bootstrap
 
             if (!(root["scopedRegistries"] is JArray regs)) { regs = new JArray(); root["scopedRegistries"] = regs; changed = true; }
             var reg = regs.OfType<JObject>().FirstOrDefault(r => UpmConfigWriter.SameUrl((string)r["url"], registryUrl));
+            // Başka registry'nin zaten sahip olduğu scope (ör. com.cysharp → OpenUPM) buraya eklenmez: iki registry aynı paketi sunar.
+            scopes = scopes.Where(s => !regs.OfType<JObject>().Any(r => r != reg && r["scopes"] is JArray o && o.Any(x => (string)x == s))).ToArray();
             if (reg == null)
             {
                 regs.Add(new JObject { ["name"] = registryName, ["url"] = registryUrl, ["scopes"] = new JArray(scopes) });

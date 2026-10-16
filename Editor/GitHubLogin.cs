@@ -19,6 +19,8 @@ namespace Hyperlab.Bootstrap
 
         public static string AuthorizeUrl(string registryUrl) => registryUrl.TrimEnd('/') + "/-/oauth/authorize/cli";
 
+        // shortcut: OAuth `state` yok. verdaccio-github-oauth-ui CliFlow geri çağrıyı yalnız status/token/message ile
+        // yönlendirir, istemci state'ini taşımaz (kaynak doğrulandı); eklenti state desteklerse üret ve ParseCallback'te karşılaştır.
         /// <summary>Yönlendirme sorgusu; <c>status</c> yoksa null (favicon gibi ilgisiz istek: beklemeye devam).</summary>
         public static LoginResult? ParseCallback(NameValueCollection query)
         {

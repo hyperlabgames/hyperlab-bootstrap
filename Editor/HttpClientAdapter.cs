@@ -8,7 +8,7 @@ namespace Hyperlab.Bootstrap
 {
     public sealed class HttpClientAdapter : IHttp
     {
-        static readonly HttpClient Client = new HttpClient { Timeout = TimeSpan.FromSeconds(15) };
+        static readonly HttpClient Client = new HttpClient(new ProxyFallbackHandler()) { Timeout = TimeSpan.FromSeconds(15) };
 
         public async Task<HttpResult> SendAsync(string method, string url, string jsonBody, string bearer)
         {

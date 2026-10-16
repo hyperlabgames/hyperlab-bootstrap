@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-10-16
+### Fixed
+- Giriş ve registry istekleri `ProxyFallbackHandler` ile gider: Unity Hub'ın taşıdığı ölü proxy ortam değişkeni ilk kurulumda "Cannot reach" hatası vermez (kod Setup'takinin kopyası, ikisi birlikte değişir).
+- `ManifestWriter.Ensure`, başka bir scoped registry'nin zaten sahip olduğu scope'u (ör. OpenUPM'deki `com.cysharp`) Hyperlab registry'sine eklemez.
+
 ## [0.1.6] - 2026-10-15
 ### Changed
 - Yeni projeler Setup 0.5.0 ile kurulur (`BootstrapDefaults.SetupVersion`).
