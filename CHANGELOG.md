@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.1.8] - 2026-10-20
+### Changed
+- `SetupVersion` setup 0.7.0'a güncellendi.
+
 ## [0.1.7] - 2026-10-16
 ### Fixed
 - Giriş ve registry istekleri `ProxyFallbackHandler` ile gider: Unity Hub'ın taşıdığı ölü proxy ortam değişkeni ilk kurulumda "Cannot reach" hatası vermez (kod Setup'takinin kopyası, ikisi birlikte değişir).
