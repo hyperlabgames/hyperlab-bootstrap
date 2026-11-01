@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.1.9] - 2026-11-01
+
+### Changed
+- `SetupVersion` 0.8.0 (TinySauce 8.3.2 desteği, Genre kartı düzeltmesi).
+
 ## [0.1.8] - 2026-10-20
 ### Changed
 - `SetupVersion` setup 0.7.0'a güncellendi.
