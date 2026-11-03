@@ -59,7 +59,7 @@ namespace Hyperlab.Bootstrap
         }
 
         public const string NotInTeamMessage =
-            "Your GitHub account is not in the hyperlabgames studio-developer or studio-cofounder team; ask to be added, then log in again.";
+            "Your GitHub account is not in the hyperlabgames studio-developer, studio-cofounder, studio-product or studio-artist team; ask to be added, then log in again.";
 
         public const string TokenRejectedMessage = "The registry rejected the token (invalid or expired); log in again.";
 

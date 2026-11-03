@@ -34,7 +34,7 @@ namespace Hyperlab.Bootstrap
             root.Clear();
             root.style.paddingTop = root.style.paddingBottom = root.style.paddingLeft = root.style.paddingRight = 12;
             root.Add(new Label("Hyperlab Login") { style = { unityFontStyleAndWeight = UnityEngine.FontStyle.Bold, fontSize = 14, marginBottom = 6 } });
-            root.Add(new Label("Log in with your GitHub account. Access requires membership in the hyperlabgames studio-developer or studio-cofounder team. The token is stored in ~/.upmconfig.toml.")
+            root.Add(new Label("Log in with your GitHub account. Access requires membership in the hyperlabgames studio-developer, studio-cofounder, studio-product or studio-artist team. The token is stored in ~/.upmconfig.toml.")
                 { style = { whiteSpace = WhiteSpace.Normal, marginBottom = 8 } });
             login = new Button(OnLogin) { name = "login", text = "Log in with GitHub" };
             cancel = new Button(() => running?.Cancel()) { name = "cancel", text = "Cancel" };

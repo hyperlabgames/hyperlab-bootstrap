@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.1.10] - 2026-11-03
+### Changed
+- Registry 403 mesajı (`NotInTeamMessage`) ve `Hyperlab Login` penceresindeki erişim notu `studio-product` ve `studio-artist` takımlarını da sayar; registry bu takımlara okuma izni verdi.
+- Kurduğu Setup sürümü `0.9.0` (`SetupVersion`).
+
 ## [0.1.9] - 2026-11-01
 
 ### Changed

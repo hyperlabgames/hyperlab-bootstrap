@@ -37,7 +37,7 @@ Yalnız Editor paketi. Boş projede registry token'ını ve manifest girişlerin
 
 ## Sık yapılan hatalar
 
-- Registry 403: GitHub hesabı `studio-developer` ya da `studio-cofounder` takımında değil (kurucu takımı okur, yayın yapamaz). Registry 401: token geçersiz (`TokenRejectedMessage`); pencere parola istiyorsa bootstrap eski sürümdür (`giris.md` Tuzaklar).
+- Registry 403: GitHub hesabı `studio-developer`, `studio-cofounder`, `studio-product` ya da `studio-artist` takımında değil (kurucu, product ve artist takımları okur, yayın yapamaz). Registry 401: token geçersiz (`TokenRejectedMessage`); pencere parola istiyorsa bootstrap eski sürümdür (`giris.md` Tuzaklar).
 - `chmod` (izin 600) başarısız olursa hata değil uyarıdır; token yine yazılır.
 - Token yazıldı ama paketler inmiyor: Unity'nin manifest'i yeniden çözmesini bekle ya da `Assets → Refresh`.
 - Bootstrap sonrası bütün `unity command` çağrıları ~30 sn zaman aşımına düşüyor: registry manifest'e yazılınca Unity

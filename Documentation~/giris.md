@@ -120,7 +120,7 @@ Yok.
 
 | Belirti | Sebep | Çözüm |
 |---|---|---|
-| `Your GitHub account is not in the hyperlabgames studio-developer or studio-cofounder team…` | GitHub hesabı takımda değil (registry 403) | Takıma eklenmeyi iste (`people.yaml`), sonra yeniden giriş yap |
+| `Your GitHub account is not in the hyperlabgames studio-developer, studio-cofounder, studio-product or studio-artist team…` | GitHub hesabı takımda değil (registry 403) | Takıma eklenmeyi iste (`people.yaml`), sonra yeniden giriş yap |
 | `The registry rejected the token (invalid or expired); log in again.` | Registry 401 verdi: token geçersiz ya da imza secret'ı döndürülmüş | `Log in with GitHub` ile yeniden giriş yap |
 | Paketler 401 veriyor ve pencere parola istiyor | Eski bootstrap (GitHub girişinden önceki sürüm); sunucunun imza anahtarı döndüyse eski token'lar geçersiz | GitHub girişli bootstrap yayınlandıysa `https://github.com/hyperlabgames/hyperlab-bootstrap.git` adresinden yeniden ekle (yeni pencere GitHub ile girer); yayınlanmadıysa ya da olmazsa web token'ı elle yaz: `https://upm.hyperlab.games` → Login with GitHub → Configuration'daki token'ı `~/.upmconfig.toml`'a (bkz. `docs/contributing/registry-erisim.md` "Geçiş dönemi") |
 | `Port 8239 is in use…` | Başka bir Hyperlab Login ya da `npx verdaccio-github-oauth-ui` açık | Onu kapat, yeniden dene |

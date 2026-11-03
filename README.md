@@ -12,7 +12,7 @@ Boş Unity projesinde Package Manager → `+` → Add package from git URL:
 https://github.com/hyperlabgames/hyperlab-bootstrap.git
 ```
 
-Giriş GitHub ile yapılır; hesabın `hyperlabgames` `studio-developer` ya da `studio-cofounder` takımında olmalı.
+Giriş GitHub ile yapılır; hesabın `hyperlabgames` `studio-developer`, `studio-cofounder`, `studio-product` ya da `studio-artist` takımında olmalı.
 
 ## Hızlı başlangıç
 

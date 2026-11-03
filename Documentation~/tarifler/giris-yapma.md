@@ -9,7 +9,7 @@ Hyperlab registry token'ın makinene yazılır, projenin `Packages/manifest.json
 
 ## Gerekenler
 
-- GitHub hesabın `hyperlabgames` org'unun `studio-developer` ya da `studio-cofounder` takımında olmalı (değilse ekipten iste).
+- GitHub hesabın `hyperlabgames` org'unun `studio-developer`, `studio-cofounder`, `studio-product` ya da `studio-artist` takımında olmalı (değilse ekipten iste).
 - Tarayıcıda açık bir GitHub oturumu.
 - Hyperlab bootstrap paketi kurulu proje (boş projede Package Manager → Add package from git URL → `https://github.com/hyperlabgames/hyperlab-bootstrap.git`).
 - Ağ erişimi; Play modu fark etmez ama proje açık olmalı.
