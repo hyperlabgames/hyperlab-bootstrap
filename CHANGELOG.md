@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.1.22] - 2026-11-18
+### Changed
+- Kurduğu Setup sürümü `0.13.2` (`SetupVersion`).
+
 ## [0.1.21] - 2026-11-18
 ### Changed
 - Kurduğu Setup sürümü `0.13.1` (`SetupVersion`).
