@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [0.1.26] - 2026-11-23
+
+### Changed
+- `SetupVersion` 0.14.2'ye çekildi.
+
 ## [0.1.25] - 2026-11-20
 ### Changed
 - `SetupVersion` 0.14.1.
